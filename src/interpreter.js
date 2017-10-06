@@ -64,6 +64,19 @@ var Interpreter = function () {
 		}
 	}
 
+	var parseLine = function(line){
+		if (line.indexOf(":-") >= 0) {
+			if (line.indexOf(").") < 0) {
+				throw new Error;
+			}
+			
+		}else{
+			if (line.indexOf("(") < 0 || line.indexOf(").") < 0) {
+				throw new Error;
+			}
+		}
+	}
+
 	var canResolveFact = function(name, args){
 		for (var i = 0; i < listOfFacts.length; i++) {
 			if (listOfFacts[i].name == name && listOfFacts[i].args == args){
@@ -103,7 +116,7 @@ var Interpreter = function () {
 	}
 
     this.parseDB = function (params, paramss, paramsss) {
-    	
+    	params.map(parseLine);
     	params.map(isFactOrRule);
     }
 
@@ -123,4 +136,4 @@ var Interpreter = function () {
 
 }
 
-module.exports = Interpreter;
+module.exports = {Interpreter, Rule};

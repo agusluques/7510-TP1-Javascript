@@ -2,7 +2,8 @@ var expect = require("chai").expect;
 var should = require('should');
 var assert = require('assert');
 
-var Interpreter = require('../src/interpreter');
+var Interpreter = require('../src/interpreter').Interpreter;
+var Rule = require('../src/interpreter').Rule;
 
 
 describe("Interpreter", function () {
@@ -89,5 +90,50 @@ describe("Interpreter", function () {
 
 
 });
+
+describe("Parser", function () {
+
+    var db = [
+        "varon(juan).",
+        "varon"
+    ];
+
+    var interpreter = null;
+
+    beforeEach(function () {
+        interpreter = new Interpreter();
+    });
+
+    it('test parserDb must throw Error with wrong db', function () {
+        assert.throws(function() { interpreter.parseDB(db) }, Error);
+    });
+
+
+
+
+
+});
+
+describe("Tests Unitarios", function () {
+
+    var rule = null;
+
+    beforeEach(function () {
+        rule = new Rule("jugador", "X, Y, Z", "defensor(Y), volante(Z), delantero(Y, X)");
+    });
+
+
+    describe('Interpreter Rule', function () {
+
+        it('test replaceArgs', function () {
+            assert.equal(rule.replaceArgs("10, 20, 30"), "defensor(20), volante(30), delantero(20, 10)");
+        });
+
+
+    });
+
+
+});
+
 
 
